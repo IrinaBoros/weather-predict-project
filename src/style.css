@@ -1,0 +1,146 @@
+body {
+    color: white;
+    line-height: 30px;
+}
+
+#form {
+    text-align: right;
+    padding: 18px;
+    padding-right: 0;
+}
+
+a {
+    color: rgb(59, 59, 119);
+    text-decoration: none;
+}
+
+a:hover {
+    color: rgb(43, 4, 43);
+}
+
+::placeholder {
+    color: white;
+    opacity: 0.9;
+    text-align: left;
+    background-color: transparent;
+}
+
+h1 {
+    font-size: 30px;
+    text-align: left;
+
+
+}
+
+h2 {
+    text-align: left;
+    font-size: 16px;
+    padding-left: 5px;
+}
+
+h3 {
+    font-size: 14px;
+    text-align: right;
+    margin-top: 0 auto;
+}
+
+
+
+.big-text {
+    font-size: 45px;
+    margin-bottom: 0;
+    text-align: left;
+    margin-top: 0;
+    padding-left: 50px;
+    font-weight: bold;
+}
+
+.wrapper {
+    margin: 50px auto;
+
+    width: 35%;
+    /* 2 */
+
+    padding-right: 10px;
+    /* 3 */
+    padding-left: 10px;
+    /* 3 */
+    border: solid 1px #000;
+    background-image: linear-gradient(180deg, #b37ce7 0%, #8ec5fc 100%);
+
+}
+
+.hourly {
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+.daily {
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+.City {
+    padding: 0 0 20px;
+    list-style: none;
+    display: inline;
+    margin: 30px 30px 30px 30px;
+}
+
+.weatherInfo {
+    text-align: left;
+    padding-left: 30px;
+    margin-top: 0px;
+    font-size: 18px;
+}
+
+.dateTime {
+    font-size: 14px;
+}
+
+.degrees {
+    font-size: 55px;
+    margin: 5px auto;
+    margin-bottom: 8px;
+}
+
+img {
+    width: 148px;
+}
+
+p {
+    display: block;
+    margin: 0 auto;
+}
+
+.fixedIcon {
+    min-width: 20px;
+
+}
+
+.leftBorder {
+    border-left: solid 1px rgba(255, 255, 255, .3);
+}
+
+.iconImg {
+    width: 20px;
+}
+
+.topButton {
+    background-color: #9EA5F3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.topText {
+    background-color: #9EA5F3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+#currentLocation {
+    margin-right:5px ;
+}
