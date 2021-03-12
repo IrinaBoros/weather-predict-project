@@ -23,10 +23,11 @@
         </div>
         <header>
             <ul class="City">
-                <li class="City"> <a href="#">London</a> </li>
-                <li class="City"> <a href="#">Paris </a> </li>
-                <li class="City"> <a href="#">Berlin</a> </li>
-                <li class="City"> <a href="#">New York</a> </li>
+                <li class="City"> <a href="javascript:;" onclick="clickCity('London')">London</a> </li>
+                <li class="City"> <a href="javascript:;" onclick="clickCity('Paris')">Paris</a> </li>
+                <li class="City"> <a href="javascript:;" onclick="clickCity('Berlin')">Berlin</a> </li>
+                <li class="City"> <a href="javascript:;" onclick="clickCity('New York')">New York</a> </li>
+
             </ul>
         </header>
         <h1 id="placeText">
@@ -35,26 +36,26 @@
         <div class="container">
             <div class="row">
                 <div class="col align-self-start">
-                    <p class="dateTime">
+                    <p class="dateTime smallText">
                         Fri / February 5 / 11:28
                     </p>
 
                     <p class="degrees">
                         2°C
                     </p>
-                    <p id="temperature">RealFeel 3°C</p>
-                    <p>
+                    <p id="temperature" class="smallText">RealFeel 3°C</p>
+                    <p class="smallText">
                         <a href="#" id="fah">°F</a> |
                         <a href="#" id="cel">°C</a>
                     </p>
                 </div>
-                <div class="col align-self-center">
-                    <img src="img/cloudy.png" alt="rain" class="weatherImg">
+                <div class="col align-self-center" style="margin-left:-25px; margin-right: 25px;">
+                    <img src="img/cloudy.png" alt="rain" class="weatherImg" id="bigImg">
                 </div>
-                <div class="col align-self-end">
-                    <i class="fas fa-tint fixedIcon"></i> Humidity: 91% <br />
-                    <i class="fas fa-wind fixedIcon"></i> Wind: 18 km/h <br />
-                    <i class="fas fa-thermometer-quarter fixedIcon"></i> UV Index: Low
+                <div class="col smallText">
+                    <i class="fas fa-tint fixedIcon"></i> Humidity:<span id="humidity"></span> <br />
+                    <i class="fas fa-wind fixedIcon"></i> Wind: <span id="wind"></span> <br />
+                    <i class="fas fa-tachometer-alt fixedIcon"></i> Pressure: <span id="pressure"> </span>
                 </div>
             </div>
         </div>
@@ -65,7 +66,7 @@
         <div class="row" style="margin:auto">
             <div class="col-sm-2">
                 <div class="forecast-hour text-center"> 14:00 </div>
-                <div class="forecast-icon text-center"> <img src="img/sun.png" alt="sun" class="iconImg" />
+                <div class="forecast-icon text-center"> <img src="img/sunny.png" alt="sun" class="iconImg" />
                 </div>
                 <div class="forecast-temperature text-center">0°</div>
             </div>
@@ -89,8 +90,9 @@
             </div>
             <div class="col-sm-2 leftBorder">
                 <div class="forecast-hour text-center"> 22:00 </div>
-                <div class="forecast-icon text-center"> <img src="img/cloudy.png" alt="cloudy" class="iconImg" />
+                <div class="forecast-icon text-center"> <img src="img/partly_cloudy.png" alt="cloudy" class="iconImg" />
                 </div>
+
                 <div class="forecast-temperature text-center">1°</div>
             </div>
             <div class="col-sm-2 leftBorder">
@@ -100,60 +102,16 @@
                 <div class="forecast-temperature text-center">0°</div>
             </div>
         </div>
-        <hr />
-        <p class="daily">
-            Daily
-        </p>
-        <div class="row" style="margin: auto;">
-            <div class="col-sm-2">
-                <div class="forecast-day text-center"> Sat </div>
-                <div class="forecast-icon text-center"> <img src="img/rain.png" alt="raincloud" class="iconImg" />
-                </div>
-                <div class="forecast-temperature text-center">3°</div>
-            </div>
-            <div class="col-sm-2 leftBorder">
-                <div class="forecast-day text-center"> Sun </div>
-                <div class="forecast-icon text-center"> <img src="img/cloudandsun.png" alt="cloudandsun"
-                        class="iconImg" />
-                </div>
-                <div class="forecast-temperature text-center">5°</div>
-            </div>
-            <div class="col-sm-2 leftBorder">
-                <div class="forecast-day text-center"> Mon </div>
-                <div class="forecast-icon text-center"> <img src="img/cloudandsun.png" alt="cloudandsun"
-                        class="iconImg" />
-                </div>
-                <div class="forecast-temperature text-center">4°</div>
-            </div>
-            <div class="col-sm-2 leftBorder">
-                <div class="forecast-day text-center"> Tue </div>
-                <div class="forecast-icon text-center"> <img src="img/cloudy.png" alt="cloudy" class="iconImg" />
-                </div>
-                <div class="forecast-temperature text-center">1°</div>
-            </div>
-            <div class="col-sm-2 leftBorder">
-                <div class="forecast-day text-center"> Wed </div>
-                <div class="forecast-icon text-center"> <img src="img/rain.png" alt="rain" class="iconImg" />
-                </div>
-                <div class="forecast-temperature text-center">3°</div>
-            </div>
-            <div class="col-sm-2 leftBorder">
-                <div class="forecast-day text-center"> Thu </div>
-                <div class="forecast-icon text-center"> <img src="img/heavyrain.png" alt="heavyrain" class="iconImg" />
-                </div>
-                <div class="forecast-temperature text-center">2°</div>
-            </div>
-        </div>
         <footer>
             <i class="fab fa-cloudversify"></i>
-            WeatherPredict 
+            WeatherPredict
         </footer>
     </div>
     <div>
-<small id= coderName>
-     <a href="https://github.com/IrinaBoros/weather-predict-project" target="_blank"> Open-source code</a>
-     by Irina B
-</small>
+        <small id=coderName>
+            <a href="https://github.com/IrinaBoros/weather-predict-project" target="_blank"> Open-source code</a>
+            by Irina B
+        </small>
     </div>
     <script src="src/script.js"></script>
 </body>

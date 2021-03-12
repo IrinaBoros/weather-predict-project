@@ -149,3 +149,6 @@ p {
     display: block;
     text-align: center;
     }
+    .smallText {
+        font-size: 13px;
+    }

@@ -3,14 +3,20 @@ let feels_like = 3;
 let city = "Windermere";
 let unit = "C";
 
+
+
+let temp1 = document.querySelector(".degrees");
+let temp2 = document.querySelector("#temperature");
+let placeText = document.querySelector("#placeText");
+let humidity = document.querySelector("#humidity");
+let pressure = document.querySelector("#pressure");
+let wind = document.querySelector("#wind");
+let bigImg = document.querySelector("#bigImg");
+
 let button = document.querySelector("#topButton");
 button.addEventListener("click", searchCity);
 let place = document.querySelector("#place");
 place.addEventListener("keypress", keyPress);
-
-let temp1 = document.querySelector(".degrees");
-let temp2 = document.querySelector("#temperature");
-let placeText = document.querySelector("#placeText")
 let cLoc = document.querySelector("#currentLocation");
 cLoc.addEventListener("click", getGeo);
 let fah = document.querySelector("#fah");
@@ -18,30 +24,51 @@ fah.addEventListener("click", convertToFahrenheit);
 let cel = document.querySelector("#cel");
 cel.addEventListener("click", convertToCelsius);
 
-function searchCity(event) {
+function getByCity(city) {
   unit = "C";
-  city = place.value;
-  placeText.innerHTML = city;
   let apiKey = "872504b70f75723c48853df4dd36a3a5";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
   console.log(apiUrl);
   axios.get(`${apiUrl}`).then(writeTemperature);
 }
 
-function writeTemperature(temp) {
-  renderTemperature(temp.data.main.temp, temp.data.main.feels_like, temp.data.name);
+
+function searchCity(event) {
+  unit = "C";
+  city = place.value;
+  placeText.innerHTML = city;
+  getByCity(city);
 }
 
-function renderTemperature(temp, fl, name) {
+
+function writeTemperature(temp) {
+  console.log(temp)
+  renderTemperature(temp.data.main.temp, temp.data.main.feels_like, temp.data.name, temp.data.main.humidity, temp.data.main.pressure, temp.data.wind.speed, temp.data.weather[0].icon);
+
+}
+
+
+function renderTemperature(temp, fl, name, h, p, w,  icon) {
+
   temperature = Math.round(temp);
   feels_like = Math.round(fl);
   city = name;
   temp1.innerHTML = Math.round(temperature) + "°" + unit;
   temp2.innerHTML = `RealFeel ${feels_like} ° ${unit}`;
   placeText.innerHTML = name;
-  let now = new Date(); // change time to show as 08:12 / 17:02 instead of 8:12
+  let now = new Date(); 
+  
   let paragraph = document.querySelector(".dateTime");
-  paragraph.innerHTML = `${getDay(now.getDay())} ${now.getHours()}:${now.getMinutes()}`;
+  paragraph.innerHTML = `Updated:${now.toLocaleTimeString()}`;
+  humidity.innerHTML = `${h}%`;
+  wind.innerHTML = `${w} km/h`;
+  pressure.innerHTML = `${p} hpa`;
+  bigImg.setAttribute("src",`http://openweathermap.org/img/w/${icon}.png`);
+}
+
+function clickCity(city) {
+  getByCity(city);
+
 }
 
 function getTempCurrent(position) {
@@ -100,3 +127,12 @@ function getDay(d) {
 let now = new Date(); // change time to show as 08:12 / 17:02 instead of 8:11
 let paragraph = document.querySelector(".dateTime");
 paragraph.innerHTML = `${getDay(now.getDay())} ${now.getHours()}:${now.getMinutes()}`;
+
+window.onload = () => {
+  getGeo();
+}
+
+
+//api.openweathermap.org/data/2.5/forecast/daily?q={city name}&cnt={cnt}&appid={API key}
+
+//https://api.openweathermap.org/data/2.5/forecast?appid=${apiKey}&units=metric&q=${city}
