@@ -144,3 +144,8 @@ p {
 #currentLocation {
     margin-right:5px ;
 }
+#coderName {
+    color: #000;
+    display: block;
+    text-align: center;
+    }
