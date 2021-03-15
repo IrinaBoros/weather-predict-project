@@ -2,6 +2,11 @@ let temperature = 2;
 let feels_like = 3;
 let city = "Windermere";
 let unit = "C";
+let lst = [];
+let prs = 1;
+let wnd = 4;
+let hum = 5;
+let icn = "";
 
 
 
@@ -32,12 +37,53 @@ function getByCity(city) {
   axios.get(`${apiUrl}`).then(writeTemperature);
 }
 
+function getForcastByCity(city) {
+  unit = "C";
+  let apiKey = "872504b70f75723c48853df4dd36a3a5";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?appid=${apiKey}&units=metric&q=${city}`;
+  console.log(apiUrl);
+  axios.get(`${apiUrl}`).then(writeForcast);
+}
+
+function writeForcast(list) {
+  console.log(list);
+  renderForcast(list.data.list, "C");
+  lst = list.data.list;
+}
+
+
+function renderForcast(list, metric) {
+ // console.log(list);
+  let hourly=document.querySelector("#hourly");
+  let final="";
+  for (let x = 3; x <= 8; x++) {
+    let template = "";
+    let record=list[x];
+    template += '<div class="col-sm-2">';
+    template += '<div class="forecast-hour text-center">{hour}</div>';
+    template += '<div class="forecast-icon text-center"><img src="{icon}" alt="weatherIcon" class="iconImg" /></div>';
+    template += '<div class="forecast-temperature text-center">{temp}</div>';
+    template += '</div>';
+    template=template.replace("{hour}",record.dt_txt.split(" ")[1].substr(0,5));
+    if(metric=="C"){
+      template=template.replace("{temp}", Math.round(record.main.temp) + "°C");
+    } else {
+      template=template.replace("{temp}", Math.round(convertToF(record.main.temp)) + "°F");
+    }
+    template=template.replace("{icon}",`http://openweathermap.org/img/w/${record.weather[0].icon}.png`);
+    final+=template;
+  }
+  hourly.innerHTML=final;
+}
+
 
 function searchCity(event) {
   unit = "C";
   city = place.value;
   placeText.innerHTML = city;
   getByCity(city);
+  getForcastByCity(city);
+
 }
 
 
@@ -48,26 +94,31 @@ function writeTemperature(temp) {
 }
 
 
-function renderTemperature(temp, fl, name, h, p, w,  icon) {
+function renderTemperature(temp, fl, name, h, p, w, icon) {
 
   temperature = Math.round(temp);
   feels_like = Math.round(fl);
   city = name;
+  hum = h;
+  prs= p;
+  wnd = w;
+  icn= icon;
   temp1.innerHTML = Math.round(temperature) + "°" + unit;
   temp2.innerHTML = `RealFeel ${feels_like} ° ${unit}`;
   placeText.innerHTML = name;
-  let now = new Date(); 
-  
+  let now = new Date();
+
   let paragraph = document.querySelector(".dateTime");
   paragraph.innerHTML = `Updated:${now.toLocaleTimeString()}`;
   humidity.innerHTML = `${h}%`;
   wind.innerHTML = `${w} km/h`;
   pressure.innerHTML = `${p} hpa`;
-  bigImg.setAttribute("src",`http://openweathermap.org/img/w/${icon}.png`);
+  bigImg.setAttribute("src", `http://openweathermap.org/img/w/${icon}.png`);
 }
 
 function clickCity(city) {
   getByCity(city);
+  getForcastByCity(city);
 
 }
 
@@ -78,6 +129,16 @@ function getTempCurrent(position) {
   let apiKey = "872504b70f75723c48853df4dd36a3a5";
   let apiURL = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${apiKey}`;
   axios.get(apiURL).then(writeTemperature);
+  getForcastCurrent(position);
+}
+
+function getForcastCurrent(position) {
+  unit = "C";
+  let latitude = position.coords.latitude;
+  let longitude = position.coords.longitude;
+  let apiKey = "872504b70f75723c48853df4dd36a3a5";
+  let apiURL = `https://api.openweathermap.org/data/2.5/forecast?appid=${apiKey}&units=metric&lat=${latitude}&lon=${longitude}`;
+  axios.get(apiURL).then(writeForcast);
 }
 
 function getGeo(event) {
@@ -97,7 +158,8 @@ function convertToFahrenheit(event) {
     temperature = convertToF(temperature);
     feels_like = convertToF(feels_like);
     unit = "F";
-    renderTemperature(temperature, feels_like, city);
+    renderTemperature(temperature, feels_like, city, hum, prs, wnd, icn);
+    renderForcast(lst,"F");
   }
 }
 
@@ -107,7 +169,8 @@ function convertToCelsius(event) {
     temperature = convertToC(temperature);
     feels_like = convertToC(feels_like);
     unit = "C";
-    renderTemperature(temperature, feels_like, city);
+    renderTemperature(temperature, feels_like, city, hum, prs, wnd, icn);
+    renderForcast(lst,"C");
   }
 }
 
@@ -132,6 +195,11 @@ window.onload = () => {
   getGeo();
 }
 
+
+
+
+// my spelling sucks  :D is Forecast not forcast but I don't feel like going through all the code to change it  :D:D
+// http://openweathermap.org/img/w/
 
 //api.openweathermap.org/data/2.5/forecast/daily?q={city name}&cnt={cnt}&appid={API key}
 
