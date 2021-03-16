@@ -53,27 +53,27 @@ function writeForcast(list) {
 
 
 function renderForcast(list, metric) {
- // console.log(list);
-  let hourly=document.querySelector("#hourly");
-  let final="";
+  // console.log(list);
+  let hourly = document.querySelector("#hourly");
+  let final = "";
   for (let x = 3; x <= 8; x++) {
     let template = "";
-    let record=list[x];
+    let record = list[x];
     template += '<div class="col-sm-2">';
     template += '<div class="forecast-hour text-center">{hour}</div>';
     template += '<div class="forecast-icon text-center"><img src="{icon}" alt="weatherIcon" class="iconImg" /></div>';
     template += '<div class="forecast-temperature text-center">{temp}</div>';
     template += '</div>';
-    template=template.replace("{hour}",record.dt_txt.split(" ")[1].substr(0,5));
-    if(metric=="C"){
-      template=template.replace("{temp}", Math.round(record.main.temp) + "°C");
+    template = template.replace("{hour}", record.dt_txt.split(" ")[1].substr(0, 5));
+    if (metric == "C") {
+      template = template.replace("{temp}", Math.round(record.main.temp) + "°C");
     } else {
-      template=template.replace("{temp}", Math.round(convertToF(record.main.temp)) + "°F");
+      template = template.replace("{temp}", Math.round(convertToF(record.main.temp)) + "°F");
     }
-    template=template.replace("{icon}",`http://openweathermap.org/img/w/${record.weather[0].icon}.png`);
-    final+=template;
+    template = template.replace("{icon}", `http://openweathermap.org/img/w/${record.weather[0].icon}.png`);
+    final += template;
   }
-  hourly.innerHTML=final;
+  hourly.innerHTML = final;
 }
 
 
@@ -100,9 +100,9 @@ function renderTemperature(temp, fl, name, h, p, w, icon) {
   feels_like = Math.round(fl);
   city = name;
   hum = h;
-  prs= p;
+  prs = p;
   wnd = w;
-  icn= icon;
+  icn = icon;
   temp1.innerHTML = Math.round(temperature) + "°" + unit;
   temp2.innerHTML = `RealFeel ${feels_like} ° ${unit}`;
   placeText.innerHTML = name;
@@ -159,7 +159,7 @@ function convertToFahrenheit(event) {
     feels_like = convertToF(feels_like);
     unit = "F";
     renderTemperature(temperature, feels_like, city, hum, prs, wnd, icn);
-    renderForcast(lst,"F");
+    renderForcast(lst, "F");
   }
 }
 
@@ -170,7 +170,7 @@ function convertToCelsius(event) {
     feels_like = convertToC(feels_like);
     unit = "C";
     renderTemperature(temperature, feels_like, city, hum, prs, wnd, icn);
-    renderForcast(lst,"C");
+    renderForcast(lst, "C");
   }
 }
 
