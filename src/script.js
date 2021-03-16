@@ -192,7 +192,7 @@ let paragraph = document.querySelector(".dateTime");
 paragraph.innerHTML = `${getDay(now.getDay())} ${now.getHours()}:${now.getMinutes()}`;
 
 window.onload = () => {
-  getGeo();
+  clickCity("Bucharest");
 }
 
 
